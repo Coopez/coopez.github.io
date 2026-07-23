@@ -1,0 +1,23 @@
+---
+layout: single
+title: "Supervised Master's theses"
+permalink: /teaching/master-theses/
+author_profile: true
+---
+
+<p>Master's theses I have supervised, most recent first.</p>
+
+{% if site.data.theses %}
+<ul>
+{% for t in site.data.theses %}
+  <li style="margin-bottom:.5em;">
+    <strong>{{ t.student }}</strong>{% if t.year %} ({{ t.year }}){% endif %}.
+    {% if t.url != blank %}<a href="{{ t.url }}">{{ t.title }}</a>{% else %}<em>{{ t.title }}</em>{% endif %}{% if t.institution %}, {{ t.institution }}{% endif %}.
+  </li>
+{% endfor %}
+</ul>
+{% else %}
+<p><em>No theses listed yet.</em></p>
+{% endif %}
+
+<!-- Add theses by editing _data/theses.yml. -->

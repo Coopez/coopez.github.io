@@ -1,0 +1,27 @@
+---
+layout: single
+title: "Lectures"
+permalink: /teaching/lectures/
+author_profile: true
+---
+
+<p>Recordings and materials for lectures I have given, hosted externally. Click a card to open the lecture.</p>
+
+{% if site.data.lectures %}
+<div class="card-grid">
+{% for lec in site.data.lectures %}
+  <a class="card" href="{{ lec.url }}"{% if lec.url contains '://' %} target="_blank" rel="noopener"{% endif %}>
+    {% if lec.thumbnail != blank %}<img class="card__img" src="{{ lec.thumbnail }}" alt="" loading="lazy">{% endif %}
+    <div class="card__body">
+      {% if lec.venue != blank or lec.date != blank %}<p class="card__meta">{{ lec.venue }}{% if lec.venue != blank and lec.date != blank %} &middot; {% endif %}{{ lec.date }}</p>{% endif %}
+      <h3 class="card__title">{{ lec.title }}</h3>
+      {% if lec.description != blank %}<p class="card__desc">{{ lec.description }}</p>{% endif %}
+    </div>
+  </a>
+{% endfor %}
+</div>
+{% else %}
+<p><em>No lectures listed yet.</em></p>
+{% endif %}
+
+<!-- Add lectures by editing _data/lectures.yml. A thumbnail can be an external image URL or a local file under /images/lectures/. -->

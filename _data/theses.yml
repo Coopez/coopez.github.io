@@ -1,0 +1,19 @@
+# Supervised Master's theses, shown on /teaching/master-theses/. List newest first.
+# Fields: student (required), title (required), year, institution, url (link to the published thesis if available).
+# Delete the example below and add your own.
+
+- student: "Tobias Hagtved Borge"
+  title: "Optimal Stock Trading Strategies: A Forecasting and Control problem"
+  year: 2026
+  institution: "University of Oslo"
+  url: ""
+- student: "Marius Nicolai Kundtzon"
+  title: "Market Regime-Stratified Evaluation of Sequential Deep Learning Architectures on  Equity Markets"
+  year: 2026
+  institution: "University of Oslo"
+  url: ""
+- student: "Roc Ballesteros Pujol"
+  title: "From Forecasting to Anomaly Detection: Probabilistic Machine Learning for Time Series in Radon Monitoring"
+  year: 2026
+  institution: "University of Oslo"
+  url: ""

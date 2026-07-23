@@ -1,0 +1,23 @@
+---
+layout: archive
+title: "Talks and presentations"
+permalink: /talks/
+author_profile: true
+---
+
+{% if site.talkmap_link == true %}
+<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
+{% endif %}
+
+<div class="card-grid">
+{% for post in site.talks reversed %}
+  <a class="card" href="{{ post.url }}">
+    {% if post.thumbnail %}<img class="card__img" src="{{ post.thumbnail }}" alt="" loading="lazy">{% endif %}
+    <div class="card__body">
+      <p class="card__meta">{{ post.type }}{% if post.venue %} &middot; {{ post.venue }}{% endif %} &middot; {{ post.date | date: "%b %Y" }}</p>
+      <h3 class="card__title">{{ post.title }}</h3>
+      {% if post.excerpt %}<p class="card__desc">{{ post.excerpt }}</p>{% endif %}
+    </div>
+  </a>
+{% endfor %}
+</div>

@@ -1,0 +1,63 @@
+\documentclass[10pt,a4paper]{article}
+
+%COMPILING: IMPORTANT INFORMATION
+% You'll need to generate a .bbl file from
+% the .bib file first, otherwise the publications
+% will not show up in the cv.
+
+% in TeXstudio, this means
+% 1. F1 or F6 for usual compiling (generate .aux)
+% 2. F8 for bibliography compiling (generate .bbl)
+% 3. F1 or F6 for usual compiling once more (generate .pdf)
+
+% use your favourite citation style here
+\usepackage{apacite}
+
+\usepackage[left=2.5cm,right=2.5cm,top=1.5cm,bottom=2.5cm]{geometry}
+
+
+% as bibentry and hyperref clash in some cases, this is a workaround
+% as suggested by the following two links:
+%https://tex.stackexchange.com/questions/227933/using-bibentry-to-cite-in-text-reference-with-apacite
+% and
+%https://tex.stackexchange.com/questions/65348/clash-between-bibentry-and-hyperref-with-bibstyle-elsart-harv/65401#65401
+\usepackage{bibentry}
+\makeatletter\let\saved@bibitem\@bibitem\makeatother
+\usepackage[colorlinks=true]{hyperref}
+\makeatletter\let\@bibitem\saved@bibitem\makeatother
+
+
+% hanging publications: 1st line starts at beginning of line,
+% further lines are placed a bit to the right
+\usepackage{hanging}
+\newcommand\publication[1]{%
+	\smallskip\par\hangpara{1.5em}{1}\bibentry{#1}\smallskip
+}
+
+
+\begin{document}
+
+	% bibliography
+	\nobibliography{publications} % no .bib extension — BibTeX appends it
+	\bibliographystyle{apacite}
+
+	\section*{Publications}
+
+	% optional: split into different subsections for
+	% peer-reviewed articles, conference abstracts, ...
+
+	% example with links
+	\publication{erdmann2024deep}
+		% (\href{https://arxiv.org/abs/1706.06969}{link}, \href{https://arxiv.org/pdf/1706.06969.pdf}{pdf}, \href{https://github.com/rgeirhos/object-recognition}{data and materials})
+
+	% example without links
+	\publication{d2022dynamic}
+    \publication{erdmann2025multi}
+\publication{zieglmeier2025reinforcement}
+	\publication{ericksen2025horizon}
+    \publication{erdmann2022dynamic}
+	% the cumbersome way
+%	\hangpara{1.5em}{1}Knuth, D. E. (1998).
+%	\textit{The art of computer programming: sorting and searching} (Vol. 3). Pearson Education.
+
+\end{document}

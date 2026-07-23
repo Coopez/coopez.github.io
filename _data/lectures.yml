@@ -1,0 +1,18 @@
+# Externally hosted lectures. Each entry becomes a card on /teaching/lectures/.
+# Fields: title (required), url (required), venue, date, thumbnail, description.
+# thumbnail: an external image URL (e.g. a YouTube thumbnail) or a local path like /images/lectures/my-lecture.png
+# Delete the example below and add your own. Remove all entries to show the empty-state message.
+
+# - title: "Example lecture (edit _data/lectures.yml)"
+#   url: "https://example.com"
+#   venue: "Course or venue"
+#   date: "2025"
+#   thumbnail: ""
+#   description: "One-line description of the lecture. This is a placeholder."
+
+- title: "A Pytorch tutorial"
+  url: "https://docs.google.com/presentation/d/139mKvUb4tLjHj0NlCVAmgFvl39MASgY2MFrAZdBM9_k/edit?usp=sharing"
+  venue: "TEK5040"
+  date: "2025"
+  thumbnail: ""
+  description: "Short introduction to Pytorch and how Deep Learning code is built."

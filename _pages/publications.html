@@ -1,0 +1,25 @@
+---
+layout: archive
+title: "Publications"
+permalink: /publications/
+author_profile: true
+---
+
+<style>.archive__item-title { font-size: 0.95rem; }</style>
+
+{% if site.author.googlescholar %}
+  <p>The full list is also on my <a href="{{ site.author.googlescholar }}">Google Scholar profile</a>.</p>
+{% endif %}
+
+{% include base_path %}
+
+{% for post in site.publications reversed %}
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    <h2 class="archive__item-title" itemprop="headline" style="margin-bottom: 0.15em;">
+      <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ post.title }}</a>
+    </h2>
+    {% if post.excerpt %}
+      <p class="archive__item-excerpt" itemprop="description" style="margin-top: 0;">{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+    {% endif %}
+  </article>
+{% endfor %}
