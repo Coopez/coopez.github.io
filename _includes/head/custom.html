@@ -69,4 +69,20 @@
 <script data-goatcounter="https://niklas.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 
+<!-- marimo islands: load the CDN runtime only on posts that set `marimo: true` -->
+{% if page.marimo %}{% include marimo-head.html %}{% endif %}
+
+<!-- MathJax: render LaTeX in prose. Inline $…$ and \(…\); display $$…$$ and \[…\]. -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <!-- end custom head snippets -->

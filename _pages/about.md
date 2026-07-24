@@ -8,7 +8,7 @@ redirect_from:
 ---
 
 I'm a PhD candidate at the [Department of Technology Systems](https://www.mn.uio.no/its/english/),
-University of Oslo. My research interests lie in more trustworthy and transparent AI and their applications. At the moment, I am specifically working with machine learning based probabilistic forecasting and constrained neural networks.
+University of Oslo. My research interests lie in more trustworthy and transparent AI and its applications. At the moment, I am specifically working with machine learning based probabilistic forecasting and constrained neural networks.
 
 I very much enjoy all aspects of academia, from research to discussions, talks, and teaching. I am also passionate about larger impact of research and the role of researchers in society.
 

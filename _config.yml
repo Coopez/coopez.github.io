@@ -170,6 +170,9 @@ exclude:
   - CLAUDE.md
   - TODO.md
   - serve.ps1
+  - notebooks              # marimo notebook sources + island build script (run via pixi)
+  - pixi.toml
+  - pixi.lock
   - cv                     # LaTeX source for the CV PDF; also avoids clashing with the /cv/ page
   - "*.sublime-project"
   - "*.sublime-workspace"
@@ -215,6 +218,7 @@ incremental: false
 # Markdown Processing
 kramdown:
   input: GFM
+  math_engine: null   # leave $…$/$$…$$ untouched so MathJax (loaded in head) renders it
   hard_wrap: false
   auto_ids: true
   footnote_nr: 1
