@@ -1,6 +1,6 @@
 <!-- start custom comments snippet: giscus, themed to follow the site's theme toggle -->
-<!-- NOTE: this MUST be a static <script> tag. giscus uses document.currentScript to
-     find where to render, which is null for scripts inserted via JS. -->
+<!-- Static <script> is required: giscus finds its mount via document.currentScript,
+     which is null for scripts inserted by JS. -->
 <script src="https://giscus.app/client.js"
         data-repo="coopez/coopez.github.io"
         data-repo-id="R_kgDOThNEig"
@@ -19,9 +19,6 @@
 
 <script>
 (function () {
-  var GISCUS_ORIGIN = "https://giscus.app";
-
-  // Mirror the site's theme: gruvbox_dark for dark, light_tritanopia for light.
   function giscusTheme() {
     var t = localStorage.getItem("theme");
     var dark = (t === "dark") ? true
@@ -30,21 +27,23 @@
     return dark ? "gruvbox_dark" : "light_tritanopia";
   }
 
-  function pushTheme() {
+  // Poll for the site theme and, when it changes, reload the giscus iframe with
+  // the new theme via its src. Robust: doesn't rely on the postMessage setConfig
+  // path (which silently no-ops in some deployed environments).
+  var applied = null;
+  setInterval(function () {
+    var theme = giscusTheme();
+    if (theme === applied) return;
     var frame = document.querySelector("iframe.giscus-frame");
-    if (!frame) return;
-    frame.contentWindow.postMessage(
-      { giscus: { setConfig: { theme: giscusTheme() } } }, GISCUS_ORIGIN);
-  }
-
-  // The toggle flips <html data-theme>; mirror it into the giscus iframe.
-  new MutationObserver(pushTheme).observe(
-    document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-
-  // Set the correct theme once giscus has loaded (corrects the static default above).
-  window.addEventListener("message", function (e) {
-    if (e.origin === GISCUS_ORIGIN && e.data && e.data.giscus) pushTheme();
-  });
+    if (!frame || !frame.src) return;              // giscus not mounted yet
+    var url;
+    try { url = new URL(frame.src); } catch (e) { return; }
+    if (url.searchParams.get("theme") !== theme) {
+      url.searchParams.set("theme", theme);
+      frame.src = url.toString();                  // reloads giscus in the new theme
+    }
+    applied = theme;
+  }, 500);
 })();
 </script>
 <!-- end custom comments snippet -->
