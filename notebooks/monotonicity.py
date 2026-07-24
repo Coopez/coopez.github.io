@@ -32,7 +32,10 @@ def _(np, plt, roughness, seed):
     window = 25
     kernel = np.ones(window) / window  # smooth the increments -> smooth curves
 
-    ink = "#888888"  # mid-grey: legible on both light and dark backgrounds
+    # The figure renders in a sandboxed worker with no access to the page theme,
+    # so the axis can't follow light/dark. One grey that reads on both backgrounds.
+    ink = "#9a9a9a"
+
     fig, ax = plt.subplots(figsize=(7, 4.5))
     fig.patch.set_alpha(0.0)
     ax.patch.set_alpha(0.0)

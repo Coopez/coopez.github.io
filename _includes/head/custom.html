@@ -73,9 +73,30 @@
 {% if page.marimo %}
   {% include marimo-head.html %}
   <style>
-    /* Marimo island text (slider labels, values) follows the site's light/dark theme */
-    marimo-island, marimo-island * { color: var(--global-text-color); }
+    /* Match marimo's surface + text to the site's theme so it blends in both modes. */
+    .marimo {
+      --background: var(--global-bg-color) !important;
+      --foreground: var(--global-text-color) !important;
+    }
   </style>
+  <script>
+    /* marimo switches to dark when a `.dark` class sits on an ancestor of `.marimo`
+       (its CSS keys off `.marimo:is(.dark *)`). The site toggle only sets
+       <html data-theme="dark">, so mirror that into a `.dark` class on <html>. */
+    (function () {
+      function isDark() {
+        var t = localStorage.getItem("theme");
+        if (t === "dark") return true;
+        if (t === "light") return false;
+        return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      }
+      function apply(dark) { document.documentElement.classList.toggle("dark", dark); }
+      apply(isDark());
+      new MutationObserver(function () {
+        apply(document.documentElement.getAttribute("data-theme") === "dark");
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    })();
+  </script>
 {% endif %}
 
 <!-- MathJax: render LaTeX in prose. Inline $…$ and \(…\); display $$…$$ and \[…\]. -->
