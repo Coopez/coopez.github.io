@@ -49,7 +49,7 @@ def make_thumbnail(out: Path, seed: int = 2, roughness: float = 16.0) -> None:
     for s in ax.spines.values():
         s.set_visible(False)
     out.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out, dpi=110, bbox_inches="tight", facecolor="white")
+    fig.savefig(out, dpi=110, bbox_inches="tight", transparent=True)
     plt.close(fig)
 
 

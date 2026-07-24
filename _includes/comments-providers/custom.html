@@ -1,3 +1,54 @@
-<!-- start custom comments snippet -->
+<!-- start custom comments snippet: giscus, themed to follow the site's theme toggle -->
+<script>
+(function () {
+  var GISCUS_ORIGIN = "https://giscus.app";
 
+  // Mirror the site's theme resolution (assets/js/_main.js › determineComputedTheme):
+  // an explicit choice in localStorage, otherwise the OS preference.
+  function siteTheme() {
+    var t = localStorage.getItem("theme");
+    var dark = (t === "dark") ? true
+      : (t === "light") ? false
+      : !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    return dark ? "gruvbox_dark" : "light_tritanopia";
+  }
+
+  // Inject giscus with the current theme as its initial value.
+  var s = document.createElement("script");
+  s.src = "https://giscus.app/client.js";
+  s.async = true;
+  s.crossOrigin = "anonymous";
+  var cfg = {
+    "data-repo": "coopez/coopez.github.io",
+    "data-repo-id": "R_kgDOThNEig",
+    "data-category": "Announcements",
+    "data-category-id": "DIC_kwDOThNEis4DB45a",
+    "data-mapping": "pathname",
+    "data-strict": "0",
+    "data-reactions-enabled": "1",
+    "data-emit-metadata": "0",
+    "data-input-position": "bottom",
+    "data-theme": siteTheme(),
+    "data-lang": "en"
+  };
+  Object.keys(cfg).forEach(function (k) { s.setAttribute(k, cfg[k]); });
+  (document.getElementById("comments") || document.body).appendChild(s);
+
+  function pushTheme() {
+    var frame = document.querySelector("iframe.giscus-frame");
+    if (!frame) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: siteTheme() } } }, GISCUS_ORIGIN);
+  }
+
+  // The toggle flips <html data-theme>; mirror that into the giscus iframe.
+  new MutationObserver(pushTheme).observe(
+    document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  // Also re-assert the theme once giscus finishes loading (covers a toggle mid-load).
+  window.addEventListener("message", function (e) {
+    if (e.origin === GISCUS_ORIGIN && e.data && e.data.giscus) pushTheme();
+  });
+})();
+</script>
 <!-- end custom comments snippet -->

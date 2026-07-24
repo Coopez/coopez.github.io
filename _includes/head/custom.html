@@ -70,7 +70,13 @@
         async src="//gc.zgo.at/count.js"></script>
 
 <!-- marimo islands: load the CDN runtime only on posts that set `marimo: true` -->
-{% if page.marimo %}{% include marimo-head.html %}{% endif %}
+{% if page.marimo %}
+  {% include marimo-head.html %}
+  <style>
+    /* Marimo island text (slider labels, values) follows the site's light/dark theme */
+    marimo-island, marimo-island * { color: var(--global-text-color); }
+  </style>
+{% endif %}
 
 <!-- MathJax: render LaTeX in prose. Inline $…$ and \(…\); display $$…$$ and \[…\]. -->
 <script>

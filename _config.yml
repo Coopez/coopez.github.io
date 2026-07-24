@@ -100,7 +100,7 @@ future                   : true
 read_more                : "disabled" # if enabled, adds "Read more" links to excerpts
 talkmap_link             : false      #change to true to add link to talkmap on talks page
 comments:
-  provider               : # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
+  provider               : "custom" # giscus (GitHub Discussions), wired in _includes/comments-providers/custom.html
   disqus:
     shortname            :
   discourse:
@@ -252,6 +252,7 @@ defaults:
       type: posts
     values:
       layout: single
+      permalink: /blog/:title/
       author_profile: true
       read_time: true
       comments: true
@@ -272,7 +273,7 @@ defaults:
       layout: single
       author_profile: true
       share: true
-      comments: true
+      comments: false   # comments only on blog posts, not teaching entries
   # _publications
   - scope:
       path: ""
@@ -281,7 +282,7 @@ defaults:
       layout: single
       author_profile: true
       share: true
-      comments: true
+      comments: false   # comments only on blog posts, not publication pages
   # _portfolio
   - scope:
       path: ""
