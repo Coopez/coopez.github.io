@@ -11,7 +11,7 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="bottom"
-        data-theme="light_tritanopia"
+        data-theme="{{ '/assets/css/giscus-light.css' | absolute_url }}"
         data-lang="en"
         crossorigin="anonymous"
         async>
@@ -21,12 +21,18 @@
 (function () {
   var GISCUS_ORIGIN = "https://giscus.app";
 
+  /* Self-hosted custom themes that mirror the site's light/dark palette.
+     Absolute URLs are required: the giscus iframe is cross-origin, so a
+     root-relative path would resolve against giscus.app, not this site. */
+  var THEME_DARK = "{{ '/assets/css/giscus-dark.css' | absolute_url }}";
+  var THEME_LIGHT = "{{ '/assets/css/giscus-light.css' | absolute_url }}";
+
   function giscusTheme() {
     var t = localStorage.getItem("theme");
     var dark = (t === "dark") ? true
       : (t === "light") ? false
       : !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    return dark ? "gruvbox_dark" : "light_tritanopia";
+    return dark ? THEME_DARK : THEME_LIGHT;
   }
 
   /* Live-theme giscus via its documented setConfig message (no iframe reload).
