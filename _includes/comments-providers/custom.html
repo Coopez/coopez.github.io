@@ -19,6 +19,8 @@
 
 <script>
 (function () {
+  var GISCUS_ORIGIN = "https://giscus.app";
+
   function giscusTheme() {
     var t = localStorage.getItem("theme");
     var dark = (t === "dark") ? true
@@ -27,23 +29,25 @@
     return dark ? "gruvbox_dark" : "light_tritanopia";
   }
 
-  // Poll for the site theme and, when it changes, reload the giscus iframe with
-  // the new theme via its src. Robust: doesn't rely on the postMessage setConfig
-  // path (which silently no-ops in some deployed environments).
-  var applied = null;
-  setInterval(function () {
-    var theme = giscusTheme();
-    if (theme === applied) return;
+  // Live-theme giscus via its documented setConfig message (no iframe reload).
+  function pushTheme() {
     var frame = document.querySelector("iframe.giscus-frame");
-    if (!frame || !frame.src) return;              // giscus not mounted yet
-    var url;
-    try { url = new URL(frame.src); } catch (e) { return; }
-    if (url.searchParams.get("theme") !== theme) {
-      url.searchParams.set("theme", theme);
-      frame.src = url.toString();                  // reloads giscus in the new theme
-    }
-    applied = theme;
-  }, 500);
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: giscusTheme() } } }, GISCUS_ORIGIN);
+  }
+
+  // Delivery is timing-sensitive: a setConfig sent before giscus finishes loading
+  // is silently dropped. giscus only posts a message once it's live and listening,
+  // so (re)assert the current theme on every message from it — this guarantees at
+  // least one setConfig lands after the widget is ready, and re-corrects reloads.
+  window.addEventListener("message", function (e) {
+    if (e.origin === GISCUS_ORIGIN && e.data && e.data.giscus) pushTheme();
+  });
+
+  // Follow the site toggle, which flips <html data-theme>.
+  new MutationObserver(pushTheme).observe(
+    document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 })();
 </script>
 <!-- end custom comments snippet -->
