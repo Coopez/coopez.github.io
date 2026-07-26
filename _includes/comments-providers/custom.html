@@ -29,7 +29,10 @@
     return dark ? "gruvbox_dark" : "light_tritanopia";
   }
 
-  // Live-theme giscus via its documented setConfig message (no iframe reload).
+  /* Live-theme giscus via its documented setConfig message (no iframe reload).
+     NOTE: block comments only in this <script> — the site's HTML minifier
+     collapses newlines, which turns any // line comment into a swallow-the-
+     rest-of-the-script comment. That silently killed every earlier attempt. */
   function pushTheme() {
     var frame = document.querySelector("iframe.giscus-frame");
     if (!frame || !frame.contentWindow) return;
@@ -37,15 +40,15 @@
       { giscus: { setConfig: { theme: giscusTheme() } } }, GISCUS_ORIGIN);
   }
 
-  // Delivery is timing-sensitive: a setConfig sent before giscus finishes loading
-  // is silently dropped. giscus only posts a message once it's live and listening,
-  // so (re)assert the current theme on every message from it — this guarantees at
-  // least one setConfig lands after the widget is ready, and re-corrects reloads.
+  /* Delivery is timing-sensitive: a setConfig sent before giscus finishes loading
+     is silently dropped. giscus only posts a message once it's live and listening,
+     so (re)assert the current theme on every message from it — this guarantees at
+     least one setConfig lands after the widget is ready, and re-corrects reloads. */
   window.addEventListener("message", function (e) {
     if (e.origin === GISCUS_ORIGIN && e.data && e.data.giscus) pushTheme();
   });
 
-  // Follow the site toggle, which flips <html data-theme>.
+  /* Follow the site toggle, which flips <html data-theme>. */
   new MutationObserver(pushTheme).observe(
     document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 })();
