@@ -15,7 +15,7 @@ Education
 ======
 * Ph.D. in AI-based Prognosis of Dynamic Energy Systems, University of Oslo, 2023–2027 (expected)
 * M.Sc. in Artificial Intelligence, University of Groningen, 2022 (8.4/10)
-* B.Sc. in Psychology (Honours, Excellence Programme), University of Groningen, 2019
+* B.Sc. in Psychology (Excellence track, Honours Programme), University of Groningen, 2019
 
 Research interests
 ======
